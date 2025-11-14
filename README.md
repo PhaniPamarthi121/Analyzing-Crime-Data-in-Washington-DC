@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.9-blue)
+![R](https://img.shields.io/badge/R-4.0-orange)
+![Data Analysis](https://img.shields.io/badge/Focus-Crime%20Analytics-green)
+
+
 # Analyzing-Crime-Data-in-Washington-DC
 Data-driven analysis of ~300K Washington D.C. crime records using Python/R to uncover spatial hotspots, temporal trends, and actionable insights for improved resource allocation.
 
