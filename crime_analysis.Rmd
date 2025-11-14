@@ -1,0 +1,103 @@
+---
+title: "Project 4"
+author: "Phani Satya Sai Pamarthi"
+date: "2024-12-06"
+output: pdf_document
+---
+
+```{r}
+
+library(geosphere)
+library(dplyr)
+
+
+crime_data <- read.csv("C:/Users/phani/Desktop/AIT 580/crime_data.csv")
+
+
+print("Structure of the dataset:")
+str(crime_data)
+
+print("\nSummary of the dataset:")
+summary(crime_data)
+
+
+print("\nMissing Values in Each Column:")
+print(colSums(is.na(crime_data)))
+
+
+print("\nFirst 5 rows of the dataset:")
+print(head(crime_data))
+
+
+numeric_columns <- sapply(crime_data, is.numeric)
+print("\nSummary Statistics for Numeric Columns:")
+print(summary(crime_data[, numeric_columns]))
+
+
+categorical_columns <- sapply(crime_data, is.factor)
+print("\nFrequency Counts for Categorical Columns:")
+for (col in names(crime_data)[categorical_columns]) {
+  print(paste("\nValue counts for", col, ":"))
+  print(table(crime_data[[col]]))
+}
+
+
+landmarks <- data.frame(
+  Landmark = c("White House", "Lincoln Memorial"),
+  Latitude = c(38.8977, 38.8893),
+  Longitude = c(-77.0365, -77.0502)
+)
+
+crime_data <- crime_data %>%
+  mutate(
+    WhiteHouse_Distance = distHaversine(
+      cbind(LONGITUDE, LATITUDE), 
+      c(-77.0365, 38.8977)
+    ) / 1000,
+    LincolnMemorial_Distance = distHaversine(
+      cbind(LONGITUDE, LATITUDE), 
+      c(-77.0502, 38.8893)
+    ) / 1000 
+  )
+
+crime_data <- crime_data %>%
+  mutate(
+    Near_WhiteHouse = ifelse(WhiteHouse_Distance <= 1, "Within 1km", "Beyond 1km"),
+    Near_LincolnMemorial = ifelse(LincolnMemorial_Distance <= 1, "Within 1km", "Beyond 1km")
+  )
+
+whitehouse_analysis <- crime_data %>%
+  group_by(Near_WhiteHouse) %>%
+  summarise(Crime_Count = n())
+
+lincoln_analysis <- crime_data %>%
+  group_by(Near_LincolnMemorial) %>%
+  summarise(Crime_Count = n())
+
+
+print("Crimes Near White House:")
+print(whitehouse_analysis)
+
+print("Crimes Near Lincoln Memorial:")
+print(lincoln_analysis)
+
+library(ggplot2)
+
+ggplot(crime_data, aes(x = Near_WhiteHouse)) +
+  geom_bar(fill = "cyan3") +
+  ggtitle("Crimes Near the White House") +
+  xlab("Proximity to White House") +
+  ylab("Crime Count")
+
+ggplot(crime_data, aes(x = Near_LincolnMemorial)) +
+  geom_bar(fill = "darkolivegreen") +
+  ggtitle("Crimes Near the Lincoln Memorial") +
+  xlab("Proximity to Lincoln Memorial") +
+  ylab("Crime Count")
+
+```
+```{r}
+colnames(crime_data)
+
+```
+
