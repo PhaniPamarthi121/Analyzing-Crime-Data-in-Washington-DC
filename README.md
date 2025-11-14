@@ -37,6 +37,5 @@ dc-crime-analysis/
 │   ├── DC_Crime_Analysis_Report.pdf
 │   └── DC_Crime_R_Output.pdf
 │── visuals/
-│   └── hotspot_map.png (example)
 │── requirements.txt
 └── LICENSE
