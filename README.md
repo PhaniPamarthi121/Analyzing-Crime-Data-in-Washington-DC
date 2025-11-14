@@ -1,9 +1,6 @@
 # Analyzing-Crime-Data-in-Washington-DC
 Data-driven analysis of ~300K Washington D.C. crime records using Python/R to uncover spatial hotspots, temporal trends, and actionable insights for improved resource allocation.
 
-
-# Crime Data Analysis in Washington, D.C.
-
 This project analyzes crime incidents in Washington, D.C. to identify spatial and temporal patterns, detect hotspots near key landmarks, and generate insights for better resource allocation and public safety strategies.
 
 ## Project Overview
